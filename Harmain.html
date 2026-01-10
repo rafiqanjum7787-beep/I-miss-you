@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+           <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -161,7 +161,6 @@ function startGame(){
             this.remove();
         };
         area.appendChild(h);
-        // Remove heart after animation
         setTimeout(() => h.remove(), 4000);
     }, 800);
 }
@@ -184,6 +183,7 @@ function checkQuiz(){
         if(currentQ < questions.length){
             initQuiz();
             document.getElementById("quizAnswer").value = "";
+            document.getElementById("quizMessage").innerText = "";
         } else {
             showPage('letterPage');
         }
@@ -200,8 +200,10 @@ let matched = 0;
 function showMemory(){
     showPage('memoryGame');
     const board = document.getElementById("memoryBoard");
-    emojis.sort(() => 0.5 - Math.random());
-    emojis.forEach((emoji, i) => {
+    board.innerHTML = ""; // Clear board if needed
+    let gameEmojis = [...emojis];
+    gameEmojis.sort(() => 0.5 - Math.random());
+    gameEmojis.forEach((emoji, i) => {
         let card = document.createElement("div");
         card.dataset.val = emoji;
         card.dataset.index = i;
@@ -212,7 +214,7 @@ function showMemory(){
 }
 
 function flipCard(){
-    if(flipped.length < 2 && !this.classList.contains('done')){
+    if(flipped.length < 2 && !this.classList.contains('done') && this !== flipped[0]){
         this.innerText = this.dataset.val;
         flipped.push(this);
         if(flipped.length === 2) setTimeout(checkMatch, 500);
@@ -241,16 +243,16 @@ function showFinalPage(){
         ctx.fillStyle = "rgba(0,0,0,0.05)";
         ctx.fillRect(0,0,500,500);
         
-        // Heart Math Equation
         let x = 16 * Math.pow(Math.sin(t), 3);
         let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
         
+        ctx.save();
         ctx.translate(250, 250);
         ctx.fillStyle = "#ff2e63";
         ctx.beginPath();
         ctx.arc(x * 12, y * 12, 2, 0, Math.PI*2);
         ctx.fill();
-        ctx.translate(-250, -250);
+        ctx.restore();
         
         t += 0.05;
         requestAnimationFrame(draw);
@@ -260,3 +262,4 @@ function showFinalPage(){
 </script>
 </body>
 </html>
+ 
