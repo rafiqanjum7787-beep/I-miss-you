@@ -129,16 +129,22 @@ input{padding:12px; border-radius:15px; border:2px solid #ff9a9e; width:80%; out
 const music = document.getElementById("bgMusic");
 
 // LOCK FUNCTION
-function unlock(){
- if(pass.value.toLowerCase()=="talha" || pass.value.toLowerCase()=="harmain"){
-  music.play();
-  document.getElementById("lock").style.display="none";
-  document.getElementById("game").style.display="flex";
-  startGame();
- } else {
-     document.getElementById("err").innerText="Hint: Use 'ek he tu jaan ha' 💔";
- }
+function unlock() {
+    // Input field ko select karna
+    var pass = document.getElementById("passInput"); // "passInput" ki jagah apni HTML ID likhein
+    var value = pass.value.toLowerCase();
+
+    // Condition check
+    if (value == "talha" || value == "harmain" || value == "ek he tu jaan ha") {
+        music.play();
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("game").style.display = "flex";
+        startGame();
+    } else {
+        document.getElementById("err").innerText = "Hint: Use 'ek he tu jaan ha' 💔";
+    }
 }
+
 
 // HEART GAME
 let score=0;
