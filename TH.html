@@ -79,7 +79,7 @@ input{padding:12px; border-radius:15px; border:2px solid #ff9a9e; width:80%; out
 <div id="lock" class="page">
  <div id="lockBox">
   <h2>💖 Enter Secret Key 💖</h2>
-  <p style="margin-bottom:15px;">Hint: Talha's Love 💙</p>
+  <p style="margin-bottom:15px;">Hint: Talha's jaan 💙</p>
   <input type="password" id="pass" placeholder="Enter Name...">
   <br>
   <button onclick="unlock()">Unlock 💖</button>
@@ -170,7 +170,10 @@ function startGame(){
 const quizData=[
  {q:"Who loves you the most in the world?", a:"talha"},
  {q:"What does Talha call you lovingly?", a:"myjaan"},
- {q:"Will you stay with Talha forever?", a:"yes"}
+ {q:"Will you stay with Talha forever?", a:"yes"},
+ {q:"Talha's favourite food ?", a:"biryani"}, 
+ {q:"Talha's favourite colour ?", a:"black"},
+ {q:"Talha's favourite person ?", a:"harmain"}
 ];
 let qi=0;
 function startQuiz(){
@@ -199,7 +202,7 @@ function nextQuiz(){
 // LETTER WITH TYPEWRITER EFFECT
 function showLetter(){
  document.getElementById("letterPage").style.display="flex";
- let text = "Dear Harmain, \n\nI miss you more than words can ever describe. Life feels incomplete without your smile. You are the best thing that ever happened to me. \n\nForever yours, \nTalha ❤️";
+ let text = "Dear Harmain, \n\nI miss you more than words can ever describe.you are one in million. Life feels incomplete without your smile.I love you forever. You are the best thing that ever happened to me. \n\nForever yours, \nTalha ❤️";
  let i = 0;
  function type() {
     if (i < text.length) {
@@ -214,7 +217,7 @@ function showLetter(){
 }
 
 // MEMORY GAME
-const emojis=["💖","💖","💙","💙","💘","💘","❤️","❤️"].sort(()=>Math.random()-0.5);
+const emojis=["💖","💖","💙","💙","💘","💘","❤️","❤️","💍","💍"].sort(()=>Math.random()-0.5);
 let selected = [];
 let matchedCount = 0;
 
