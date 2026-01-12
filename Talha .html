@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>I Miss You 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Pacifico',cursive;}
+body{overflow-x:hidden;text-align:center;background:linear-gradient(135deg,#ff9a9e,#fad0c4);color:#fff;}
+.disco{
+ position:fixed;inset:0;z-index:-5;
+ background:
+  radial-gradient(circle at 20% 30%, rgba(255,0,150,.4), transparent 40%),
+  radial-gradient(circle at 80% 20%, rgba(0,255,255,.4), transparent 40%),
+  radial-gradient(circle at 50% 80%, rgba(255,255,0,.4), transparent 40%);
+ animation:disco 8s infinite alternate;
+}
+@keyframes disco{100%{filter:hue-rotate(360deg)}}
+
+button{
+ padding:14px 36px;border:none;border-radius:40px;
+ background:white;color:#c9184a;
+ font-size:1.3rem;margin:15px;cursor:pointer;
+ transition:.3s;
+}
+button:hover{transform:scale(1.1)}
+
+.page{display:none;padding:30px;min-height:100vh;flex-direction:column;justify-content:center;align-items:center;}
+
+#lock{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;z-index:999}
+#lockBox{background:rgba(255,255,255,.85);padding:40px;border-radius:30px;color:#c9184a;}
+
+#heart-area span{
+ position:absolute;font-size:32px;cursor:pointer;
+ animation:fall 4s linear infinite;
+}
+@keyframes fall{from{top:-60px}to{top:110vh}}
+
+.letter{
+ background:rgba(30,58,138,.95);
+ width:90%;max-width:800px;
+ margin:20px auto;padding:40px;
+ border-radius:25px;font-size:1.8rem;
+}
+
+#memoryBoard{display:flex;flex-wrap:wrap;width:320px;margin:20px auto;justify-content:center}
+.card{
+ width:70px;height:70px;margin:5px;background:#fff;
+ display:flex;align-items:center;justify-content:center;
+ font-size:2rem;cursor:pointer;border-radius:10px;color:transparent;
+}
+.flipped{color:initial !important; background: #ffe3e3 !important;}
+
+#finalCanvas{display:block;margin:auto;max-width:100%;background:#0a0a23;border-radius:20px;}
+#finalText{
+ font-size:3rem;font-family:'Great Vibes',cursive;color:#ff2e63;
+ position:absolute;top:60%;left:50%;
+ transform:translate(-50%,-50%);
+ text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+</style>
+</head>
+
+<body>
+<div class="disco"></div>
+
+<div id="lock" class="page" style="display:flex">
+ <div id="lockBox">
+  <h2>💖 I Miss You 💖</h2>
+  <p>Password Hint: Your Name 💙</p>
+  <input type="password" id="pass" style="padding:10px; border-radius:10px; border:1px solid #ccc;">
+  <br><br>
+  <button onclick="unlock()">Unlock 💖</button>
+  <p id="err" style="color:red"></p>
+ </div>
+</div>
+
+<div id="game" class="page">
+ <h1>❤️ Catch 10 Hearts ❤️</h1>
+ <h2><span id="score">0</span> / 10</h2>
+ <div id="heart-area"></div>
+</div>
+
+<div id="quizPage" class="page">
+ <h1>Mini Love Quiz 💕</h1>
+ <h3 id="quizQuestion"></h3>
+ <input id="quizAnswer" placeholder="Answer" style="padding:10px; border-radius:10px;">
+ <p id="quizMessage"></p>
+ <button onclick="nextQuiz()">Next</button>
+</div>
+
+<div id="letterPage" class="page">
+ <div class="letter" id="letterText"></div>
+ <button onclick="showMemory()">Next 💙</button>
+</div>
+
+<div id="memoryGame" class="page">
+ <h1>Memory Love Game 💖</h1>
+ <div id="memoryBoard"></div>
+ <p id="memoryMessage"></p>
+ <button id="memNext" style="display:none" onclick="showFinalPage()">Next ❤️</button>
+</div>
+
+<div id="finalPage" class="page">
+ <h1>Forever Connected ❤️</h1>
+ <div style="position:relative">
+    <canvas id="finalCanvas" width="500" height="500"></canvas>
+    <div id="finalText">Talha ❤️ Harmain</div>
+ </div>
+</div>
+
+<script>
+// LOCK FUNCTION
+function unlock(){
+ if(pass.value.toLowerCase()=="talha"){
+  document.getElementById("lock").style.display="none";
+  document.getElementById("game").style.display="flex";
+  startGame();
+ } else {
+     document.getElementById("err").innerText="Dil se socho 💔";
+ }
+}
+
+// HEART GAME
+let score=0;
+function startGame(){
+ let heartArea = document.getElementById("heart-area");
+ let scoreEl = document.getElementById("score");
+ let i = setInterval(()=>{
+  if(score>=10){
+      clearInterval(i);
+      setTimeout(()=>{
+          document.getElementById("game").style.display="none";
+          startQuiz();
+      },600);
+      return;
+  }
+  let h=document.createElement("span");
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*90+"vw";
+  h.style.position="absolute";
+  h.onclick=()=>{
+   score++;
+   scoreEl.innerText=score;
+   h.remove();
+  };
+  heartArea.appendChild(h);
+ },600);
+}
+
+// QUIZ
+const quizData=[
+ {q:"What does Talha lovingly call you?",a:"myjaan"},
+ {q:"Who is Talha’s favorite person?",a:"harmain"}
+];
+let qi=0;
+function startQuiz(){
+    document.getElementById("quizPage").style.display="flex";
+    showQ();
+}
+function showQ(){
+ if(qi>=quizData.length){
+     document.getElementById("quizPage").style.display="none";
+     showLetter();
+     return;
+ }
+ document.getElementById("quizQuestion").innerText=quizData[qi].q;
+ document.getElementById("quizAnswer").value="";
+}
+function nextQuiz(){
+ let ans = document.getElementById("quizAnswer").value.toLowerCase().replace(/\s/g,"");
+ if(ans == quizData[qi].a){
+     qi++;
+     showQ();
+ } else {
+     alert("Try again! Hint: Use small letters without spaces.");
+ }
+}
+
+// LETTER
+function showLetter(){
+ document.getElementById("letterPage").style.display="flex";
+ document.getElementById("letterText").innerHTML="I miss you more than words can say 💙<br><br>Every beat of my heart is for you.<br><br>Forever yours,<br>Talha ❤️";
+}
+
+// MEMORY GAME
+const emojis=["💖","💖","💙","💙","💘","💘","❤️","❤️"].sort(()=>Math.random()-0.5);
+let selected = [];
+let matchedCount = 0;
+
+function showMemory(){
+ document.getElementById("letterPage").style.display="none";
+ document.getElementById("memoryGame").style.display="flex";
+ let board = document.getElementById("memoryBoard");
+ 
+ emojis.forEach((emoji, index) => {
+    let card = document.createElement("div");
+    card.classList.add("card");
+    card.dataset.val = emoji;
+    card.innerText = emoji;
+    card.onclick = function() {
+        if(this.classList.contains('flipped') || selected.length === 2) return;
+        this.classList.add('flipped');
+        selected.push(this);
+        
+        if(selected.length === 2) {
+            if(selected[0].dataset.val === selected[1].dataset.val) {
+                matchedCount++;
+                selected = [];
+                if(matchedCount === 4) document.getElementById("memNext").style.display="block";
+            } else {
+                setTimeout(() => {
+                    selected[0].classList.remove('flipped');
+                    selected[1].classList.remove('flipped');
+                    selected = [];
+                }, 700);
+            }
+        }
+    };
+    board.appendChild(card);
+ });
+}
+
+// FINAL PAGE & CANVAS
+function showFinalPage(){
+ document.getElementById("memoryGame").style.display="none";
+ document.getElementById("finalPage").style.display="flex";
+ drawHearts();
+}
+
+function drawHearts() {
+    const canvas = document.getElementById('finalCanvas');
+    const ctx = canvas.getContext('2d');
+    const particles = [];
+
+    class Particle {
+        constructor() {
+            this.x = canvas.width / 2;
+            this.y = canvas.height / 2;
+            this.size = Math.random() * 5 + 2;
+            this.speedX = Math.random() * 3 - 1.5;
+            this.speedY = Math.random() * 3 - 1.5;
+            this.color = `hsl(${Math.random() * 360}, 70%, 50%)`;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.size > 0.1) this.size -= 0.05;
+        }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function animate() {
+        ctx.fillStyle = 'rgba(10, 10, 35, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        particles.push(new Particle());
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+            if (particles[i].size <= 0.3) {
+                particles.splice(i, 1);
+                i--;
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+</script>
+</body>
+</html>
