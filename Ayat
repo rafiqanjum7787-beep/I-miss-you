@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>I Miss You Bestie 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Pacifico',cursive;}
+    body{ background:linear-gradient(135deg,#6a11cb,#2575fc); color:#fff; text-align:center; overflow:hidden;}
+    
+    .disco{ position:fixed;inset:0;z-index:-2; background: radial-gradient(circle at 20% 30%, rgba(255,0,150,.35), transparent 40%), radial-gradient(circle at 80% 20%, rgba(0,255,255,.35), transparent 40%); animation:disco 6s infinite alternate;}
+    @keyframes disco{100%{filter:hue-rotate(360deg)}}
+
+    .page{ display:none; min-height:100vh; padding:20px; flex-direction:column; justify-content:center; align-items:center;}
+    button{ padding:12px 30px; border:none; border-radius:40px; background:#fff; color:#2575fc; font-size:1.1rem; margin:10px; cursor:pointer; transition:.3s;}
+    button:hover{transform:scale(1.1)}
+
+    #lock{ position:fixed; inset:0; background:rgba(0,0,0,.8); display:flex; z-index:999; justify-content:center; align-items:center;}
+    #lockBox{ background:rgba(255,255,255,0.1); backdrop-filter:blur(10px); padding:40px; border-radius:25px; border:1px solid rgba(255,255,255,0.2);}
+    input{ padding:12px; border-radius:12px; border:none; text-align:center; font-size:1rem; margin-bottom:10px; color: #333;}
+
+    #heart-area span{ position:absolute; font-size:30px; cursor:pointer; animation:fall 4s linear forwards;}
+    @keyframes fall{ to{ transform:translateY(110vh); } }
+
+    .letter{ background:rgba(255,255,255,.15); backdrop-filter:blur(10px); border-radius:20px; padding:30px; max-width:600px; font-size:1.4rem; line-height:1.6;}
+
+    /* --- New Perfect Heart Animation --- */
+    .heart-container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin-top: 20px;
+    }
+    
+    #perfectHeart {
+        fill: white;
+        stroke: white;
+        stroke-width: 2;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        opacity: 0;
+        transform-origin: center;
+    }
+
+    .combined #perfectHeart {
+        animation: drawHeart 3s ease-forward forwards, pulse 2s infinite 3.5s;
+        opacity: 1;
+    }
+
+    @keyframes drawHeart {
+        from { stroke-dashoffset: 1000; fill: transparent; }
+        to { stroke-dashoffset: 0; fill: white; }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .heart-names {
+        margin-top: 20px;
+        font-size: 1.8rem;
+        opacity: 0;
+        transition: opacity 2s ease-in-out 3s;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    }
+    .combined .heart-names { opacity: 1; }
+
+</style>
+</head>
+
+<body>
+<div class="disco"></div>
+
+<div id="lock" class="page" style="display:flex">
+    <div id="lockBox">
+        <h2>💙 For My Bestie 💙</h2>
+        <p>Password Hint: <b>Talha's bestie</b></p><br>
+        <input id="passInput" type="password" placeholder="Type password 💌"><br>
+        <button onclick="unlock()">Open</button>
+        <p id="err" style="color:#ffcccb;"></p>
+    </div>
+</div>
+
+<div id="game" class="page">
+    <h1>Catch 10 Hearts 💙</h1>
+    <h2>Score: <span id="score">0</span> / 10</h2>
+    <div id="heart-area"></div>
+</div>
+
+<div id="quizPage" class="page">
+    <h1>💡 Quiz Time 💡</h1>
+    <div id="quizContainer" style="background:rgba(255,255,255,0.1); padding:30px; border-radius:20px;"></div>
+</div>
+
+<div id="letterPage" class="page">
+    <div class="letter">
+        <p id="letterText"></p>
+    </div>
+    <button onclick="showFinal()">Finish 💙</button>
+</div>
+
+<div id="finalPage" class="page">
+    <h1>We are Best Friends Forever!</h1>
+    
+    <div class="heart-container">
+        <svg viewBox="0 0 32 32" width="200" height="200">
+            <path id="perfectHeart" d="M16 28.5C16 28.5 2 20.5 2 10.5C2 5.5 6 2.5 10 2.5C12.5 2.5 14.5 4 16 6.5C17.5 4 19.5 2.5 22 2.5C26 2.5 30 5.5 30 10.5C30 20.5 16 28.5 16 28.5Z"/>
+        </svg>
+    </div>
+
+    <div class="heart-names">Talha 💙 Ayat</div>
+    <p style="font-size: 50px; margin-top: 30px;">♾️</p>
+</div>
+
+<script>
+    let score = 0;
+    let quizIndex = 0;
+
+    function unlock() {
+        let pass = document.getElementById("passInput").value.toLowerCase();
+        if(pass === "ayat") {
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("game").style.display = "flex";
+            startGame();
+        } else {
+            document.getElementById("err").innerText = "Hint: It's your name! 😊";
+        }
+    }
+
+    function startGame() {
+        let interval = setInterval(() => {
+            if(score >= 10) {
+                clearInterval(interval);
+                document.getElementById("game").style.display = "none";
+                startQuiz();
+                return;
+            }
+            let h = document.createElement("span");
+            h.innerHTML = "💙";
+            h.style.left = Math.random() * 90 + "vw";
+            h.style.top = "-50px";
+            h.onclick = () => { 
+                score++; 
+                document.getElementById("score").innerText = score; 
+                h.remove(); 
+            };
+            document.getElementById("heart-area").appendChild(h);
+        }, 800);
+    }
+
+    const quizQuestions = [
+        {q: "Who is Talha's favorite person?", a: "ayat"},
+        {q: "Do you miss Talha?", a: "yes"},
+        {q: "Talha's favourite colour?", a: "black"}
+    ];
+
+    function startQuiz() {
+        document.getElementById("quizPage").style.display = "flex";
+        showQuestion();
+    }
+
+    function showQuestion() {
+        let q = quizQuestions[quizIndex];
+        let container = document.getElementById("quizContainer");
+        container.innerHTML = `<h3>${q.q}</h3><br><input id='ans' type='text' style='color:#333'><br><button onclick='checkAns()'>Next</button>`;
+    }
+
+    function checkAns() {
+        quizIndex++;
+        if(quizIndex < quizQuestions.length) {
+            showQuestion();
+        } else {
+            showLetter();
+        }
+    }
+
+    function showLetter() {
+        document.getElementById("quizPage").style.display = "none";
+        document.getElementById("letterPage").style.display = "flex";
+        let text = "Dear Bestie, Ayat... Just wanted to say that you are the best! Distance doesn't matter when the friendship is real. Side by side or miles apart, real friends are always close to the heart. I love that I don't have to act socially acceptable around you! 💙";
+        let i = 0;
+        document.getElementById("letterText").innerHTML = ""; 
+        function typing() {
+            if(i < text.length) {
+                document.getElementById("letterText").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typing, 50);
+            }
+        }
+        typing();
+    }
+
+    function showFinal() {
+        document.getElementById("letterPage").style.display = "none";
+        document.getElementById("finalPage").style.display = "flex";
+        
+        setTimeout(() => {
+            document.getElementById("finalPage").classList.add("combined");
+        }, 500);
+    }
+</script>
+</body>
+</html>
