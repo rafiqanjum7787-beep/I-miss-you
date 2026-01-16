@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Bestie 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Pacifico', cursive; }
+    body { background: #000; color:#fff; text-align:center; overflow-x:hidden; }
+
+    /* Disco Background */
+    .disco { 
+        position:fixed; inset:0; z-index:-2; 
+        background: radial-gradient(circle at center, #ff0055, #0000ff, #00ff00, #ff00fb);
+        background-size: 400% 400%;
+        animation: discoMove 4s infinite linear;
+        opacity: 0.6;
+    }
+    @keyframes discoMove {
+        0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+        50% { background-position: 100% 50%; filter: hue-rotate(180deg); }
+        100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
+    }
+
+    .page { display:none; min-height:100vh; padding:20px; flex-direction:column; justify-content:center; align-items:center; position: relative; }
+
+    /* Lock Page */
+    #lockBox { 
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        padding: 50px 30px;
+        border-radius: 30px;
+        border: 2px solid rgba(255,255,255,0.3);
+        box-shadow: 0 0 30px rgba(37, 117, 252, 0.5);
+    }
+
+    input { padding:12px; border-radius:12px; border:none; text-align:center; font-size:1.1rem; margin-bottom:10px; color: #333; outline: none; }
+    button { padding:12px 35px; border:none; border-radius:40px; background:#ff0055; color:#fff; font-size:1.1rem; cursor:pointer; transition:.3s; margin-top: 10px; }
+    button:hover { transform:scale(1.1); }
+
+    /* Red Hearts Game */
+    #heart-area span { position:absolute; font-size:55px; color: #ff0000; cursor:pointer; animation: fall 1.8s linear forwards; }
+    @keyframes fall { to { transform:translateY(110vh) rotate(360deg); } }
+
+    /* Memory Game */
+    .memory-grid { display: grid; grid-template-columns: repeat(4, 70px); gap: 10px; margin-top: 20px; }
+    .card { width: 70px; height: 70px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #000; cursor: pointer; transition: 0.4s; }
+    .card.flipped { transform: rotateY(180deg); background: #ff0055; color: #fff; }
+
+    /* Letter Box */
+    .letter-box { background:rgba(255,255,255,.15); backdrop-filter:blur(10px); border-radius:20px; padding:30px; max-width:600px; font-size:1.4rem; line-height:1.6; border: 1px solid white; }
+
+    /* Final Heart */
+    .final-heart-box { position: relative; width: 300px; height: 300px; display: flex; justify-content: center; align-items: center; }
+    .main-heart { fill: #ff0055; animation: beat 1s infinite; }
+    .name-inside { position: absolute; font-size: 1.6rem; font-weight: bold; color: white; z-index: 10; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+    @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+</style>
+</head>
+
+<body>
+<div class="disco"></div>
+
+<div id="lock" class="page" style="display:flex">
+    <div id="lockBox">
+        <h2>💙 For My Bestie 💙</h2><br>
+        <p>Password Hint: <b>Talha's bestie</b></p><br>
+        <input id="passInput" type="password" placeholder="Type password..."><br>
+        <button onclick="unlock()">Open 💌</button>
+        <p id="err" style="color:#ffcccb; margin-top:10px;"></p>
+    </div>
+</div>
+
+<div id="game" class="page">
+    <h1>Catch 10  Hearts! ❤️</h1>
+    <h2>Score: <span id="score">0</span> / 10</h2>
+    <div id="heart-area"></div>
+</div>
+
+<div id="memoryPage" class="page">
+    <h1>Match the Pairs 🧩</h1>
+    <div class="memory-grid" id="grid"></div>
+</div>
+
+<div id="quizPage" class="page">
+    <div id="quizContainer" style="background:rgba(255,255,255,0.1); padding:30px; border-radius:20px;"></div>
+</div>
+
+<div id="letterPage" class="page">
+    <div class="letter-box">
+        <p id="letterText"></p>
+    </div>
+    <button onclick="showFinal()">Finish 💙</button>
+</div>
+
+<div id="finalPage" class="page">
+    <div class="final-heart-box">
+        <svg viewBox="0 0 32 32" width="300" height="300">
+            <path class="main-heart" d="M16 28.5C16 28.5 2 20.5 2 10.5C2 5.5 6 2.5 10 2.5C12.5 2.5 14.5 4 16 6.5C17.5 4 19.5 2.5 22 2.5C26 2.5 30 5.5 30 10.5C30 20.5 16 28.5 16 28.5Z"/>
+        </svg>
+        <div class="name-inside">Talha 💙 Ayat</div>
+    </div>
+    <h1 style="margin-top:20px;">BFF Forever! ♾️</h1>
+</div>
+
+<script>
+    let score = 0;
+    function unlock() {
+        if(document.getElementById("passInput").value.toLowerCase() === "ayat") {
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("game").style.display = "flex";
+            startGame();
+        } else { document.getElementById("err").innerText = "Hint check krein! 😊"; }
+    }
+
+    function startGame() {
+        let interval = setInterval(() => {
+            if(score >= 10) { clearInterval(interval); document.getElementById("game").style.display = "none"; startMemoryGame(); return; }
+            let h = document.createElement("span");
+            h.innerHTML = "❤️";
+            h.style.left = Math.random() * 90 + "vw";
+            h.style.top = "-60px";
+            h.onclick = () => { score++; document.getElementById("score").innerText = score; h.remove(); };
+            document.getElementById("heart-area").appendChild(h);
+        }, 600);
+    }
+
+    const emojis = ['💙','🎁','⭐','🍕','💙','🎁','⭐','🍕'];
+    let flippedCards = [];
+    let matchedPairs = 0;
+
+    function startMemoryGame() {
+        document.getElementById("memoryPage").style.display = "flex";
+        let shuffled = emojis.sort(() => Math.random() - 0.5);
+        shuffled.forEach((emoji) => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.dataset.val = emoji;
+            card.innerHTML = "?";
+            card.onclick = function() {
+                if(flippedCards.length < 2 && !this.classList.contains('flipped')) {
+                    this.classList.add('flipped'); this.innerHTML = this.dataset.val;
+                    flippedCards.push(this);
+                    if(flippedCards.length === 2) checkMatch();
+                }
+            };
+            document.getElementById("grid").appendChild(card);
+        });
+    }
+
+    function checkMatch() {
+        if(flippedCards[0].dataset.val === flippedCards[1].dataset.val) {
+            matchedPairs++; flippedCards = [];
+            if(matchedPairs === 4) setTimeout(() => { document.getElementById("memoryPage").style.display="none"; startQuiz(); }, 1000);
+        } else {
+            setTimeout(() => { flippedCards.forEach(c => { c.classList.remove('flipped'); c.innerHTML = "?"; }); flippedCards = []; }, 800);
+        }
+    }
+
+    const questions = [{q:"Talha's favorite person?", a:"ayat"}, {q:"Do you miss him?", a:"yes"}];
+    let qIdx = 0;
+    function startQuiz() { document.getElementById("quizPage").style.display = "flex"; showQ(); }
+    function showQ() {
+        let q = questions[qIdx];
+        document.getElementById("quizContainer").innerHTML = `<h3>${q.q}</h3><br><input id='ans' type='text'><br><button onclick='nextQ()'>Next</button>`;
+    }
+    function nextQ() {
+        qIdx++;
+        if(qIdx < questions.length) showQ();
+        else showLetter();
+    }
+
+    function showLetter() {
+        document.getElementById("quizPage").style.display = "none";
+        document.getElementById("letterPage").style.display = "flex";
+        let text = "Dear Bestie, Ayat... You are the most amazing friend Talha could ever have! Distance means nothing when a friendship is true. love that I don't have to act socially acceptable around you.Side by side or miles apart real friends are always close to the heart. Stay as awesome as you are! 💙";
+        let i = 0;
+        function typing() {
+            if(i < text.length) {
+                document.getElementById("letterText").innerHTML += text.charAt(i);
+                i++; setTimeout(typing, 50);
+            }
+        }
+        typing();
+    }
+
+    function showFinal() {
+        document.getElementById("letterPage").style.display = "none";
+        document.getElementById("finalPage").style.display = "flex";
+    }
+</script>
+</body>
+</html>
