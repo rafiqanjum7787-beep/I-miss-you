@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Hamza 🎂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Pacifico',cursive;}
+body{background:#0b1020;color:#fff;text-align:center;overflow-x:hidden}
+
+/* LIGHT DISCO */
+.disco{
+ position:fixed;inset:0;z-index:-3;
+ background:
+ radial-gradient(circle at 10% 20%, #a1c4fd, transparent 40%),
+ radial-gradient(circle at 80% 30%, #c2ffd8, transparent 40%),
+ radial-gradient(circle at 30% 80%, #fbc2eb, transparent 40%),
+ radial-gradient(circle at 70% 70%, #fddb92, transparent 40%);
+ animation:floatDisco 10s infinite alternate;
+}
+@keyframes floatDisco{
+ from{filter:hue-rotate(0deg);}
+ to{filter:hue-rotate(120deg);}
+}
+
+/* Confetti */
+.confetti{
+ position:fixed;
+ width:8px;height:14px;
+ background:rgba(255,255,255,.8);
+ animation:confetti 4s infinite linear;
+}
+@keyframes confetti{
+ from{transform:translateY(-10vh) rotate(0deg);}
+ to{transform:translateY(110vh) rotate(360deg);}
+}
+
+.page{
+ display:none;min-height:100vh;
+ padding:20px;flex-direction:column;
+ justify-content:center;align-items:center;
+}
+
+.glass{
+ background:rgba(255,255,255,.15);
+ backdrop-filter:blur(15px);
+ border-radius:25px;
+ padding:40px;
+ box-shadow:0 0 40px rgba(255,255,255,.25);
+ border:1px solid rgba(255,255,255,.4);
+}
+
+input{
+ padding:12px;border-radius:12px;border:none;
+ font-size:1.1rem;text-align:center;
+ outline:none;margin-bottom:12px;
+}
+button{
+ padding:12px 35px;border-radius:40px;
+ border:none;background:linear-gradient(45deg,#6a11cb,#2575fc);
+ color:white;font-size:1.1rem;
+ cursor:pointer;transition:.3s;
+}
+button:hover{transform:scale(1.1);}
+
+/* Final BFF */
+.bff-ring{
+ width:260px;height:260px;border-radius:50%;
+ border:6px solid transparent;
+ background:
+ linear-gradient(#0b1020,#0b1020) padding-box,
+ linear-gradient(45deg,#6a11cb,#2575fc,#00c6ff) border-box;
+ animation:spin 6s linear infinite;
+ display:flex;align-items:center;justify-content:center;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.bff-heart{font-size:5rem;animation:pulse 1.2s infinite;}
+@keyframes pulse{
+ 0%,100%{transform:scale(1)}
+ 50%{transform:scale(1.15)}
+}
+
+.bff-text{
+ margin-top:20px;font-size:2.5rem;
+ background:linear-gradient(45deg,#6a11cb,#00c6ff);
+ -webkit-background-clip:text;
+ -webkit-text-fill-color:transparent;
+ text-shadow:0 0 15px rgba(0,198,255,.6);
+}
+
+.name{font-size:1.5rem;margin-top:10px;}
+</style>
+</head>
+
+<body>
+
+<div class="disco"></div>
+
+<!-- Confetti -->
+<script>
+for(let i=0;i<40;i++){
+ let c=document.createElement("div");
+ c.className="confetti";
+ c.style.left=Math.random()*100+"vw";
+ c.style.animationDuration=(3+Math.random()*3)+"s";
+ document.body.appendChild(c);
+}
+</script>
+
+<!-- 🎂 BIRTHDAY ENTRY PAGE -->
+<div id="birthday" class="page" style="display:flex">
+ <div class="glass">
+  <h1>🎂 Happy Birthday 🎂</h1>
+  <h2>Hamza 💙</h2><br>
+  <p>Today is all about you! 🎉</p><br>
+  <button onclick="goLock()">Start Surprise 🎁</button>
+ </div>
+</div>
+
+<!-- LOCK -->
+<div id="lock" class="page">
+ <div class="glass">
+  <h2>🔐 Best Friend Access</h2><br>
+  <p>Hint: <b>Talha's friend</b></p><br>
+  <input id="passInput" type="password" placeholder="Password">
+  <br>
+  <button onclick="unlock()">Enter</button>
+  <p id="err" style="margin-top:10px;color:#ffbaba"></p>
+ </div>
+</div>
+
+<!-- FINAL PAGE -->
+<div id="finalPage" class="page">
+ <div class="bff-ring">
+  <div class="bff-heart">💙</div>
+ </div>
+ <div class="bff-text">BFF FOREVER</div>
+ <div class="name">Talha 🤝 Hamza</div>
+ <p style="margin-top:15px;opacity:.85">
+  May Allah bless you with health, success & happiness 🤲<br>
+  Enjoy your special day 🎂
+ </p>
+</div>
+
+<script>
+function goLock(){
+ birthday.style.display="none";
+ lock.style.display="flex";
+}
+
+function unlock(){
+ if(passInput.value.toLowerCase()==="hamza"){
+  lock.style.display="none";
+  finalPage.style.display="flex";
+ }else err.innerText="Wrong password 😄";
+}
+</script>
+
+</body>
+</html>
