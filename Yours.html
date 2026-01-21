@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -25,7 +25,6 @@ body{background:#0b1020;color:#fff;text-align:center;overflow-x:hidden}
  to{filter:hue-rotate(120deg);}
 }
 
-/* Sparkles */
 .sparkle{
  position:fixed;width:4px;height:4px;
  background:white;border-radius:50%;
@@ -40,7 +39,8 @@ body{background:#0b1020;color:#fff;text-align:center;overflow-x:hidden}
  display:none;min-height:100vh;
  padding:20px;flex-direction:column;
  justify-content:center;align-items:center;
-}Glass Box */
+}
+
 .glass{
  background:rgba(255,255,255,.15);
  backdrop-filter:blur(15px);
@@ -63,14 +63,13 @@ button{
 }
 button:hover{transform:scale(1.1);}
 
-/* Hearts Game */
 #heart-area span{
  position:absolute;font-size:50px;
  animation:fall 2s linear forwards;
+ cursor: pointer;
 }
 @keyframes fall{to{transform:translateY(110vh) rotate(360deg);}}
 
-/* Memory */
 .memory-grid{
  display:grid;
  grid-template-columns:repeat(4,70px);
@@ -82,21 +81,23 @@ button:hover{transform:scale(1.1);}
  font-size:2rem;display:flex;
  align-items:center;justify-content:center;
  cursor:pointer;transition:.4s;
+ color: transparent;
 }
 .card.flipped{
  background:#2575fc;color:white;
 }
 
-/* Letter */
 .letter-box{
  max-width:650px;
  background:rgba(255,255,255,.18);
  backdrop-filter:blur(12px);
  padding:35px;border-radius:25px;
  font-size:1.4rem;line-height:1.7;
- border:1px solid w/* 🔥 FINAL BFF PAGE */
+ border:1px solid rgba(255,255,255,0.3);
+}
+
 .bff-ring{
- width:260px;height:260px;
+ width:220px;height:220px;
  border-radius:50%;
  border:6px solid transparent;
  background:
@@ -125,37 +126,22 @@ button:hover{transform:scale(1.1);}
  text-shadow:0 0 15px rgba(0,198,255,.6);
 }
 
-.name{
- margin-top:10px;
- font-size:1.5rem;
- letter-spacing:2px;
-}
-
-/* 🎂 CAKE CUTTING */
 .cake-box{
  position:fixed;inset:0;
- background:rgba(0,0,0,.7);
+ background:rgba(0,0,0,.8);
  display:none;
  justify-content:center;
  align-items:center;
  z-index:999;
 }
 .cake{
- width:220px;height:180px;
+ width:220px;height:150px;
  background:linear-gradient(#ff9a9e,#fad0c4);
  border-radius:20px;
  position:relative;
- box-shadow:0 0 30px pink;
-}
-.cake:before{
- content:'';
- position:absolute;top:-25px;
- width:100%;height:25px;
- background:#fff;
- border-radius:20px 20px 0 0;
 }
 .candle{
- position:absolute;top:-50px;
+ position:absolute;top:-40px;
  left:50%;transform:translateX(-50%);
  width:10px;height:40px;
  background:#fff;border-radius:5px;
@@ -173,14 +159,10 @@ button:hover{transform:scale(1.1);}
 .cut-line{
  position:absolute;top:50%;
  height:4px;background:red;
- width:0;animation:cut 2s forwards;
-}
-@keyframes cut{
- to{width:100%;}
+ width:0;
 }
 </style>
 </head>
-
 <body>
 
 <div class="disco"></div>
@@ -189,16 +171,16 @@ button:hover{transform:scale(1.1);}
 for(let i=0;i<40;i++){
  let s=document.createElement("div");
  s.className="sparkle";
- s.style.left=Math.random()*100+"vw";s.style.animationDuration=(3+Math.random()*5)+"s";
+ s.style.left=Math.random()*100+"vw";
+ s.style.animationDuration=(3+Math.random()*5)+"s";
  document.body.appendChild(s);
 }
 </script>
 
-<!-- LOCK -->
 <div id="lock" class="page" style="display:flex">
  <div class="glass">
   <h2>🔐 Best Friend Access</h2><br>
-  <p>Hint: <b>Talha's friend</b></p><br>
+  <p>Hint: <b>Talha's friend name</b></p><br>
   <input id="passInput" type="password" placeholder="Password">
   <br>
   <button onclick="unlock()">Enter</button>
@@ -206,20 +188,17 @@ for(let i=0;i<40;i++){
  </div>
 </div>
 
-<!-- GAME -->
 <div id="game" class="page">
  <h1>Catch 10 Hearts ❤️</h1>
  <h2><span id="score">0</span> / 10</h2>
  <div id="heart-area"></div>
 </div>
 
-<!-- MEMORY -->
 <div id="memoryPage" class="page">
  <h1>Memory Match 🧠</h1>
  <div class="memory-grid" id="grid"></div>
 </div>
 
-<!-- LETTER -->
 <div id="letterPage" class="page">
  <div class="letter-box">
   <p id="letterText"></p>
@@ -228,57 +207,61 @@ for(let i=0;i<40;i++){
  <button onclick="showFinal()">Finish</button>
 </div>
 
-<!-- FINAL PAGE -->
 <div id="finalPage" class="page">
  <div class="bff-ring">
   <div class="bff-heart">💙</div>
  </div>
  <div class="bff-text">BFF FOREVER</div>
  <div class="name">Talha 🤝 Hamza</div>
- <p style="margin-top:15px;opacity:.8">
-  Brotherhood • Loyalty • Respect
- </p>
+ <p style="margin-top:15px;opacity:.8">Brotherhood • Loyalty • Respect</p>
  <button onclick="cutCake()" style="margin-top:20px">🎂 Cut Cake</button>
 </div>
 
-<!-- CAKE -->
 <div class="cake-box" id="cakeBox">
  <div class="cake">
   <div class="candle"><div class="flame"></div></div>
-  <div class="cut-line"></div>
+  <div class="cut-line" id="line"></div>
  </div>
 </div>
 
 <script>
-let score=0;
+let score = 0;
+const scoreEl = document.getElementById("score");
+const heartArea = document.getElementById("heart-area");
 
 function unlock(){
  if(passInput.value.toLowerCase()==="hamza"){
   lock.style.display="none";
   game.style.display="flex";
   startGame();
- }else err.innerText="Wrong password 😄";
+ } else {
+  err.innerText="Wrong password 😄";
+ }
 }
 
 function startGame(){
- let i=setInterval(()=>{
-  if(score>=10){
+ let i = setInterval(()=>{
+  if(score >= 10){
    clearInterval(i);
    game.style.display="none";
    startMemory();
    return;
   }
-  let h=document.createElement("span");
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*90+"vw";
-  h.style.top="-40px";
-  h.onclick=()=>{score++;scoreEl.innerText=score;h.remove();}
-  heart-area.appendChild(h);
- },600);
+  let h = document.createElement("span");
+  h.innerHTML = "❤️";
+  h.style.left = Math.random()*90 + "vw";
+  h.style.top = "-50px";
+  h.onclick = () => {
+    score++;
+    scoreEl.innerText = score;
+    h.remove();
+  };
+  heartArea.appendChild(h);
+ }, 800);
 }
 
 const emojis=['💙','🔥','⭐','⚡','💙','🔥','⭐','⚡'];
-let open=[],match=0;
+let open=[], match=0;
 
 function startMemory(){
  memoryPage.style.display="flex";
@@ -286,10 +269,10 @@ function startMemory(){
   let c=document.createElement("div");
   c.className="card";c.innerHTML="?";c.dataset.v=e;
   c.onclick=()=>{
-   if(open.length<2&&!c.classList.contains("flipped")){
+   if(open.length<2 && !c.classList.contains("flipped")){
     c.classList.add("flipped");c.innerHTML=e;
     open.push(c);
-    if(open.length==2)check();
+    if(open.length==2) check();
    }
   }
   grid.appendChild(c);
@@ -297,14 +280,14 @@ function startMemory(){
 }
 
 function check(){
- if(open[0].dataset.v===open[1].dataset.v){
-  match++;open=[];
-  if(match==4)setTimeout(showLetter,800);
- }else{
+ if(open[0].dataset.v === open[1].dataset.v){
+  match++; open=[];
+  if(match==4) setTimeout(showLetter, 800);
+ } else {
   setTimeout(()=>{
-   open.forEach(x=>{x.classList.remove("flipped");x.innerHTML="?"});
+   open.forEach(x=>{x.classList.remove("flipped"); x.innerHTML="?"});
    open=[];
-  },700);
+  }, 700);
  }
 }
 
@@ -312,9 +295,12 @@ function showLetter(){
  memoryPage.style.display="none";
  letterPage.style.display="flex";
  let t="Hamza, you are not just a friend — you are a brother. Real friendship never fades. Respect and loyalty forever 💙";
- let i=0;
+ let idx=0;
  (function type(){
-  if(i<t.length){letterText.innerHTML+=t[i++];setTimeout(type,40);}
+  if(idx<t.length){
+    document.getElementById("letterText").innerHTML += t[idx++];
+    setTimeout(type, 50);
+  }
  })();
 }
 
@@ -324,14 +310,15 @@ function showFinal(){
 }
 
 function cutCake(){
- cakeBox.style.display="flex";
+ document.getElementById("cakeBox").style.display="flex";
  setTimeout(()=>{
-  cakeBox.querySelector('.cut-line').style.width="100%";
+  document.getElementById("line").style.width="100%";
+  document.getElementById("line").style.transition="2s";
  },500);
  setTimeout(()=>{
   alert("🎉 Happy Birthday Hamza! 🎉");
-  cakeBox.style.display="none";
- },3000);
+  document.getElementById("cakeBox").style.display="none";
+ },3500);
 }
 </script>
 
