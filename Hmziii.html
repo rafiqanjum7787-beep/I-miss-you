@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Best Friend 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Pacifico',cursive;}
+body{background:#0b1020;color:#fff;text-align:center;overflow-x:hidden}
+
+/* 🌈 LIGHT DISCO BACKGROUND */
+.disco{
+ position:fixed;inset:0;z-index:-3;
+ background:
+ radial-gradient(circle at 10% 20%, #a1c4fd, transparent 40%),
+ radial-gradient(circle at 80% 30%, #c2ffd8, transparent 40%),
+ radial-gradient(circle at 30% 80%, #fbc2eb, transparent 40%),
+ radial-gradient(circle at 70% 70%, #fddb92, transparent 40%);
+ animation:floatDisco 10s infinite alternate;
+}
+@keyframes floatDisco{
+ from{filter:hue-rotate(0deg);}
+ to{filter:hue-rotate(120deg);}
+}
+
+.sparkle{
+ position:fixed;width:4px;height:4px;
+ background:white;border-radius:50%;
+ opacity:.6;animation:spark 5s infinite linear;
+}
+@keyframes spark{
+ from{transform:translateY(100vh);}
+ to{transform:translateY(-10vh);}
+}
+
+.page{
+ display:none;min-height:100vh;
+ padding:20px;flex-direction:column;
+ justify-content:center;align-items:center;
+}
+
+.glass{
+ background:rgba(255,255,255,.15);
+ backdrop-filter:blur(15px);
+ border-radius:25px;
+ padding:40px;
+ box-shadow:0 0 40px rgba(255,255,255,.25);
+ border:1px solid rgba(255,255,255,.4);
+}
+
+input{
+ padding:12px;border-radius:12px;border:none;
+ font-size:1.1rem;text-align:center;
+ outline:none;margin-bottom:12px;
+}
+button{
+ padding:12px 35px;border-radius:40px;
+ border:none;background:linear-gradient(45deg,#6a11cb,#2575fc);
+ color:white;font-size:1.1rem;
+ cursor:pointer;transition:.3s;
+}
+button:hover{transform:scale(1.1);}
+
+#heart-area span{
+ position:absolute;font-size:50px;
+ animation:fall 2s linear forwards;
+ cursor: pointer;
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);}}
+
+.memory-grid{
+ display:grid;
+ grid-template-columns:repeat(4,70px);
+ gap:12px;margin-top:20px;
+}
+.card{
+ width:70px;height:70px;
+ background:white;border-radius:12px;
+ font-size:2rem;display:flex;
+ align-items:center;justify-content:center;
+ cursor:pointer;transition:.4s;
+ color: transparent;
+}
+.card.flipped{
+ background:#2575fc;color:white;
+}
+
+.letter-box{
+ max-width:650px;
+ background:rgba(255,255,255,.18);
+ backdrop-filter:blur(12px);
+ padding:35px;border-radius:25px;
+ font-size:1.4rem;line-height:1.7;
+ border:1px solid rgba(255,255,255,0.3);
+}
+
+.bff-ring{
+ width:220px;height:220px;
+ border-radius:50%;
+ border:6px solid transparent;
+ background:
+ linear-gradient(#0b1020,#0b1020) padding-box,
+ linear-gradient(45deg,#6a11cb,#2575fc,#00c6ff) border-box;
+ animation:spin 6s linear infinite;
+ display:flex;align-items:center;justify-content:center;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.bff-heart{
+ font-size:5rem;
+ animation:pulse 1.2s infinite;
+}
+@keyframes pulse{
+ 0%,100%{transform:scale(1)}
+ 50%{transform:scale(1.15)}
+}
+
+.bff-text{
+ margin-top:20px;
+ font-size:2.4rem;
+ background:linear-gradient(45deg,#6a11cb,#00c6ff);
+ -webkit-background-clip:text;
+ -webkit-text-fill-color:transparent;
+ text-shadow:0 0 15px rgba(0,198,255,.6);
+}
+
+/* ✨ NEW REALISTIC CAKE STYLES ✨ */
+.cake-box{
+ position:fixed;inset:0;
+ background:rgba(0,0,0,0.95);
+ display:none; flex-direction: column;
+ justify-content:center; align-items:center;
+ z-index:999;
+}
+.cake-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.cake {
+    position: relative;
+    width: 250px;
+    height: 140px;
+    background: #63392b; /* Chocolate base */
+    border-radius: 10px 10px 5px 5px;
+    box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3);
+}
+/* Middle Cream Layer */
+.cake::before {
+    content: ''; position: absolute; top: 50%; left: 0;
+    width: 100%; height: 15px;
+    background: #fff;
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+/* Top Frosting */
+.cake-top {
+    position: absolute; top: -20px; left: 0;
+    width: 100%; height: 50px;
+    background: #ff4d6d;
+    border-radius: 50%;
+    z-index: 5;
+    box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2);
+}
+/* Cream Drips */
+.drip-container {
+    position: absolute; width: 100%; height: 50px; top: 15px; z-index: 6;
+}
+.drip {
+    position: absolute; width: 20px; height: 35px;
+    background: #ff4d6d; border-radius: 0 0 20px 20px;
+}
+.drip:nth-child(1) { left: 10px; height: 45px; }
+.drip:nth-child(2) { left: 50px; height: 30px; }
+.drip:nth-child(3) { left: 100px; height: 50px; }
+.drip:nth-child(4) { left: 160px; height: 35px; }
+.drip:nth-child(5) { left: 210px; height: 45px; }
+
+/* Cake Board */
+.plate {
+    position: absolute; bottom: -15px; left: 50%;
+    transform: translateX(-50%);
+    width: 320px; height: 20px;
+    background: #ccc;
+    border-radius: 50%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.candle {
+    position: absolute; top: -75px;
+    left: 50%; transform: translateX(-50%);
+    width: 12px; height: 65px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    border-radius: 3px;
+    z-index: 11;
+}
+.flame {
+    width: 20px; height: 30px;
+    background: radial-gradient(#fff, #ffae00, #ff4500);
+    border-radius: 50% 50% 20% 20%;
+    position: absolute; top: -32px; left: -4px;
+    animation: flicker .1s infinite alternate;
+    box-shadow: 0 0 20px #ffae00, 0 0 40px #ff4500;
+}
+@keyframes flicker{
+ from{transform:scale(1) rotate(-2deg); opacity: 0.9;}
+ to{transform:scale(1.1) rotate(2deg); opacity: 1;}
+}
+.cut-line {
+    position: absolute; top: -40px; left: 50%;
+    height: 180px; width: 0;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px white;
+    z-index: 12;
+    transition: 1.5s ease-in-out;
+}
+</style>
+</head>
+<body>
+
+<div class="disco"></div>
+
+<script>
+for(let i=0;i<40;i++){
+ let s=document.createElement("div");
+ s.className="sparkle";
+ s.style.left=Math.random()*100+"vw";
+ s.style.animationDuration=(3+Math.random()*5)+"s";
+ document.body.appendChild(s);
+}
+</script>
+
+<div id="lock" class="page" style="display:flex">
+ <div class="glass">
+  <h2>🔐 Best Friend Access</h2><br>
+  <p>Hint: <b>Talha's friend name</b></p><br>
+  <input id="passInput" type="password" placeholder="Password">
+  <br>
+  <button onclick="unlock()">Enter</button>
+  <p id="err" style="margin-top:10px;color:#ffbaba"></p>
+ </div>
+</div>
+
+<div id="game" class="page">
+ <h1>Catch 10 Hearts ❤️</h1>
+ <h2><span id="score">0</span> / 10</h2>
+ <div id="heart-area"></div>
+</div>
+
+<div id="memoryPage" class="page">
+ <h1>Memory Match 🧠</h1>
+ <div class="memory-grid" id="grid"></div>
+</div>
+
+<div id="letterPage" class="page">
+ <div class="letter-box">
+  <p id="letterText"></p>
+ </div>
+ <br>
+ <button onclick="showFinal()">Finish</button>
+</div>
+
+<div id="finalPage" class="page">
+ <div class="bff-ring">
+  <div class="bff-heart">💙</div>
+ </div>
+ <div class="bff-text">BFF FOREVER</div>
+ <div class="name">Talha 🤝 Hamza</div>
+ <p style="margin-top:15px;opacity:.8">Brotherhood • Loyalty • Respect</p>
+ <button onclick="cutCake()" style="margin-top:20px">🎂 Cut Cake</button>
+</div>
+
+<div class="cake-box" id="cakeBox">
+ <h2 id="cakeMsg" style="margin-bottom: 40px; color: gold; font-size: 2.2rem; text-shadow: 2px 2px #000;">Make a wish! 🕯️</h2>
+ <div class="cake-container">
+    <div class="plate"></div>
+    <div class="cake">
+        <div class="cake-top"></div>
+        <div class="drip-container">
+            <div class="drip"></div>
+            <div class="drip"></div>
+            <div class="drip"></div>
+            <div class="drip"></div>
+            <div class="drip"></div>
+        </div>
+        <div class="candle"><div class="flame" id="flame"></div></div>
+        <div class="cut-line" id="line"></div>
+    </div>
+ </div>
+</div>
+
+<script>
+let score = 0;
+const scoreEl = document.getElementById("score");
+const heartArea = document.getElementById("heart-area");
+
+function unlock(){
+ if(passInput.value.toLowerCase()==="hamza"){
+  lock.style.display="none";
+  game.style.display="flex";
+  startGame();
+ } else {
+  err.innerText="Wrong password 😄";
+ }
+}
+
+function startGame(){
+ let i = setInterval(()=>{
+  if(score >= 10){
+   clearInterval(i);
+   game.style.display="none";
+   startMemory();
+   return;
+  }
+  let h = document.createElement("span");
+  h.innerHTML = "❤️";
+  h.style.left = Math.random()*90 + "vw";
+  h.style.top = "-50px";
+  h.onclick = () => {
+    score++;
+    scoreEl.innerText = score;
+    h.remove();
+  };
+  heartArea.appendChild(h);
+ }, 800);
+}
+
+const emojis=['💙','🔥','⭐','⚡','💙','🔥','⭐','⚡'];
+let open=[], match=0;
+
+function startMemory(){
+ memoryPage.style.display="flex";
+ emojis.sort(()=>Math.random()-.5).forEach(e=>{
+  let c=document.createElement("div");
+  c.className="card";c.innerHTML="?";c.dataset.v=e;
+  c.onclick=()=>{
+   if(open.length<2 && !c.classList.contains("flipped")){
+    c.classList.add("flipped");c.innerHTML=e;
+    open.push(c);
+    if(open.length==2) check();
+   }
+  }
+  grid.appendChild(c);
+ });
+}
+
+function check(){
+ if(open[0].dataset.v === open[1].dataset.v){
+  match++; open=[];
+  if(match==4) setTimeout(showLetter, 800);
+ } else {
+  setTimeout(()=>{
+   open.forEach(x=>{x.classList.remove("flipped"); x.innerHTML="?"});
+   open=[];
+  }, 700);
+ }
+}
+
+function showLetter(){
+ memoryPage.style.display="none";
+ letterPage.style.display="flex";
+ let t="Hamza, you are not just a friend — you are a brother. Real friendship never fades. Respect and loyalty forever 💙";
+ let idx=0;
+ (function type(){
+  if(idx<t.length){
+    document.getElementById("letterText").innerHTML += t[idx++];
+    setTimeout(type, 50);
+  }
+ })();
+}
+
+function showFinal(){
+ letterPage.style.display="none";
+ finalPage.style.display="flex";
+}
+
+function cutCake(){
+ const cakeBox = document.getElementById("cakeBox");
+ const flame = document.getElementById("flame");
+ const line = document.getElementById("line");
+ const msg = document.getElementById("cakeMsg");
+
+ cakeBox.style.display="flex";
+ 
+ setTimeout(()=>{
+  flame.style.display = "none"; 
+  msg.innerText = "Cutting the cake...";
+  line.style.width = "4px"; 
+ }, 1500);
+
+ setTimeout(()=>{
+  alert("🎉 Happy Birthday Hamza! 🎂\nStay Blessed Brother! 💙");
+  cakeBox.style.display="none";
+  line.style.width="0";
+  flame.style.display="block";
+  msg.innerText = "Make a wish! 🕯️";
+ }, 4500);
+}
+</script>
+
+</body>
+</html>
