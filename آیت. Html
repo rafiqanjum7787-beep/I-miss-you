@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Bestie Ayat ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* 🎨 VIBRANT COLOR PALETTE */
+:root {
+    --primary: #ff007f; /* Neon Pink */
+    --secondary: #00f2ff; /* Electric Blue */
+    --accent: #ffeb3b; /* Bright Yellow */
+    --glass: rgba(255, 255, 255, 0.15);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Pacifico',cursive;}
+body{background:#050a18;color:#fff;text-align:center;overflow-x:hidden}
+
+/* 🌈 BRIGHTER VIBE BACKGROUND */
+.disco{
+ position:fixed;inset:0;z-index:-3;
+ background: 
+    radial-gradient(circle at 20% 30%, #4a00e0, transparent 50%),
+    radial-gradient(circle at 80% 70%, #8e2de2, transparent 50%),
+    radial-gradient(circle at 50% 10%, #ff0080, transparent 40%);
+ animation:floatDisco 10s infinite alternate;
+}
+@keyframes floatDisco{
+ from{filter:hue-rotate(0deg) brightness(1);}
+ to{filter:hue-rotate(90deg) brightness(1.3);}
+}
+
+/* ✨ SPARKLES */
+.sparkle{
+ position:fixed;width:5px;height:5px;
+ background:white;border-radius:50%;
+ box-shadow: 0 0 10px #fff, 0 0 20px var(--secondary);
+ animation:spark 5s infinite linear;
+}
+@keyframes spark{
+ from{transform:translateY(105vh) scale(0);}
+ to{transform:translateY(-10vh) scale(1.5);}
+}
+
+.page{
+ display:none;min-height:100vh;
+ padding:20px;flex-direction:column;
+ justify-content:center;align-items:center;
+}
+
+.glass{
+ background: var(--glass);
+ backdrop-filter:blur(20px);
+ border-radius:30px;
+ padding:40px;
+ box-shadow:0 0 50px rgba(255,0,127,0.4);
+ border: 2px solid rgba(255,255,255,0.2);
+ transform: translateY(0);
+ transition: 0.5s;
+}
+
+h1 { font-size: 2.8rem; text-shadow: 0 0 20px var(--primary); margin-bottom: 15px; }
+
+input{
+ padding:15px;border-radius:15px;border:none;
+ font-size:1.2rem;text-align:center;
+ outline:none;margin-bottom:15px;
+ background: white; color: #333;
+ box-shadow: 0 0 20px var(--secondary);
+}
+
+button{
+ padding:15px 45px;border-radius:50px;
+ border:none; background:linear-gradient(45deg, var(--primary), #7000ff);
+ color:white;font-size:1.3rem; font-weight: bold;
+ cursor:pointer; transition:.4s;
+ box-shadow: 0 10px 25px rgba(255,0,127,0.5);
+ text-transform: uppercase; letter-spacing: 1px;
+}
+button:hover{transform:scale(1.1) rotate(2deg); box-shadow: 0 15px 35px var(--primary);}
+
+/* 🎮 GAME AREA */
+#heart-area span{
+ position:absolute;font-size:55px;
+ filter: drop-shadow(0 0 10px gold);
+ animation:fall 3s linear forwards;
+ cursor: pointer; user-select: none;
+}
+@keyframes fall{
+    0% { transform:translateY(-10vh) rotate(0deg); }
+    100% { transform:translateY(110vh) rotate(360deg); }
+}
+
+.memory-grid{
+ display:grid; grid-template-columns:repeat(4,85px);
+ gap:15px; margin-top:25px;
+}
+.card{
+ width:85px;height:85px;
+ background:rgba(255,255,255,0.1); border-radius:15px;
+ font-size:2.5rem; display:flex;
+ align-items:center; justify-content:center;
+ cursor:pointer; transition:.4s;
+ border: 1px solid rgba(255,255,255,0.3);
+}
+.card:hover { border-color: var(--secondary); background: rgba(0,242,255,0.1); }
+.card.flipped{ background: var(--primary); color: white; transform: rotateY(180deg); }
+
+.letter-box{
+ max-width:600px; background: rgba(0,0,0,0.4);
+ padding:40px; border-radius:30px;
+ font-size:1.6rem; line-height:1.6;
+ border-left: 5px solid var(--primary);
+ border-right: 5px solid var(--secondary);
+}
+
+/* 🏆 STATS BOX (NEW FEATURE) */
+.stats {
+    display: flex; gap: 20px; margin-bottom: 25px;
+}
+.stat-item {
+    background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 15px;
+    border: 1px solid var(--accent);
+}
+
+.bff-ring{
+ width:240px;height:240px; border-radius:50%;
+ border:8px solid transparent;
+ background:
+ linear-gradient(#050a18,#050a18) padding-box,
+ linear-gradient(45deg, var(--primary), var(--secondary), var(--accent)) border-box;
+ animation:spin 4s linear infinite;
+ display:flex;align-items:center;justify-content:center;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.bff-heart{ font-size:6rem; animation:pulse 0.8s infinite; }
+
+/* 🎂 CAKE SCENE */
+.cake-box { background: rgba(5, 10, 24, 0.98) !important; }
+.flame { box-shadow: 0 0 20px orange, 0 0 40px red; }
+
+/* 🎊 CONFETTI */
+.confetti {
+    position: fixed; width: 10px; height: 10px; z-index: 9999;
+}
+</style>
+</head>
+<body>
+
+<div class="disco"></div>
+
+<script>
+// Generate more vibrant sparkles
+for(let i=0;i<50;i++){
+ let s=document.createElement("div");
+ s.className="sparkle";
+ s.style.left=Math.random()*100+"vw";
+ s.style.animationDuration=(2+Math.random()*4)+"s";
+ s.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
+ document.body.appendChild(s);
+}
+</script>
+
+<div id="lock" class="page" style="display:flex">
+ <div class="glass">
+  <h1 style="color: var(--secondary);">✨ Hello Bestie!</h1>
+  <p style="font-size: 1.2rem;">Ready for your Birthday Surprise?</p><br>
+  <input id="passInput" type="password" placeholder="Bestie's Name?">
+  <br>
+  <button onclick="unlock()">Unlock the Magic 🪄</button>
+  <p id="err" style="margin-top:10px;color:var(--primary); font-family: sans-serif;"></p>
+ </div>
+</div>
+
+<div id="game" class="page">
+ <h1>Catch the Love! ❤️</h1>
+ <p>Click 10 hearts for Ayat</p><br>
+ <h2 style="color: var(--accent); font-size: 3rem;"><span id="score">0</span> / 10</h2>
+ <div id="heart-area"></div>
+</div>
+
+<div id="memoryPage" class="page">
+ <h1 style="color: var(--secondary);">Match the Vibes ✨</h1>
+ <div class="memory-grid" id="grid"></div>
+</div>
+
+<div id="letterPage" class="page">
+ <div class="letter-box">
+  <p id="letterText" style="color: #fff;"></p>
+ </div>
+ <br>
+ <button onclick="showFinal()">Almost There! ✨</button>
+</div>
+
+<div id="finalPage" class="page">
+ <div class="stats">
+    <div class="stat-item"><b>100%</b><br>Real</div>
+    <div class="stat-item"><b>∞</b><br>Loyal</div>
+    <div class="stat-item"><b>Top</b><br>Bestie</div>
+ </div>
+ <div class="bff-ring">
+  <div class="bff-heart">💖</div>
+ </div>
+ <div class="bff-text">AYAT & TALHA</div>
+ <p style="font-size: 1.5rem; margin-top: 10px; color: var(--secondary);">Laughter • Secrets • Forever</p>
+ <button onclick="cutCake()" style="margin-top:25px">🎂 Make the Wish!</button>
+</div>
+
+<div class="cake-box" id="cakeBox">
+ <h2 id="cakeMsg" style="margin-bottom: 40px; color: var(--accent); font-size: 2.5rem;">One Big Wish, Ayat! 🕯️</h2>
+ <div class="cake-container">
+    <div class="plate"></div>
+    <div class="cake">
+        <div class="cake-top"></div>
+        <div class="drip-container">
+            <div class="drip"></div><div class="drip"></div><div class="drip"></div><div class="drip"></div><div class="drip"></div>
+        </div>
+        <div class="candle"><div class="flame" id="flame"></div></div>
+        <div class="cut-line" id="line"></div>
+    </div>
+ </div>
+</div>
+
+<script>
+let score = 0;
+const scoreEl = document.getElementById("score");
+const heartArea = document.getElementById("heart-area");
+
+function unlock(){
+ const pass = document.getElementById("passInput").value;
+ if(pass.toLowerCase()==="ayat"){
+  document.getElementById("lock").style.display="none";
+  document.getElementById("game").style.display="flex";
+  startGame();
+ } else {
+  document.getElementById("err").innerText="Hint: It starts with 'A' and ends with 't'!";
+ }
+}
+
+function startGame(){
+ let i = setInterval(()=>{
+  if(score >= 10){
+   clearInterval(i);
+   document.getElementById("game").style.display="none";
+   startMemory();
+   return;
+  }
+  let h = document.createElement("span");
+  h.innerHTML = Math.random() > 0.5 ? "❤️" : "💖";
+  h.style.left = Math.random()*90 + "vw";
+  h.style.top = "-50px";
+  h.onclick = () => {
+    score++;
+    scoreEl.innerText = score;
+    h.style.transform = "scale(2)";
+    h.style.opacity = "0";
+    setTimeout(()=>h.remove(), 200);
+  };
+  heartArea.appendChild(h);
+ }, 700);
+}
+
+const emojis=['🌈','💎','🍩','⭐','🌈','💎','🍩','⭐'];
+let open=[], match=0;
+
+function startMemory(){
+ document.getElementById("memoryPage").style.display="flex";
+ emojis.sort(()=>Math.random()-.5).forEach(e=>{
+  let c=document.createElement("div");
+  c.className="card";c.innerHTML="?";c.dataset.v=e;
+  c.onclick=()=>{
+   if(open.length<2 && !c.classList.contains("flipped")){
+    c.classList.add("flipped");c.innerHTML=e;
+    open.push(c);
+    if(open.length==2) check();
+   }
+  }
+  document.getElementById("grid").appendChild(c);
+ });
+}
+
+function check(){
+ if(open[0].dataset.v === open[1].dataset.v){
+  match++; open=[];
+  if(match==4) setTimeout(showLetter, 800);
+ } else {
+  setTimeout(()=>{
+   open.forEach(x=>{x.classList.remove("flipped"); x.innerHTML="?"});
+   open=[];
+  }, 700);
+ }
+}
+
+function showLetter(){
+ document.getElementById("memoryPage").style.display="none";
+ document.getElementById("letterPage").style.display="flex";
+ let t="Ayat, you're not just a best friend; you're family. 🌟 Watching you grow and shine is a joy. May this birthday bring you as much happiness as you give to everyone around you. You deserve the world! Happy Birthday! 🎂✨";
+ let idx=0;
+ (function type(){
+  if(idx<t.length){
+    document.getElementById("letterText").innerHTML += t[idx++];
+    setTimeout(type, 50);
+  }
+ })();
+}
+
+function showFinal(){
+ document.getElementById("letterPage").style.display="none";
+ document.getElementById("finalPage").style.display="flex";
+ spawnConfetti();
+}
+
+function spawnConfetti() {
+    for(let i=0; i<100; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random()*100+"vw";
+        c.style.top = Math.random()*100+"vh";
+        c.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+        c.style.transform = `rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+    }
+}
+
+function cutCake(){
+ const cakeBox = document.getElementById("cakeBox");
+ const flame = document.getElementById("flame");
+ const line = document.getElementById("line");
+ const msg = document.getElementById("cakeMsg");
+
+ cakeBox.style.display="flex";
+ 
+ setTimeout(()=>{
+  flame.style.display = "none"; 
+  msg.innerText = "Cutting the cake for Ayat...";
+  line.style.width = "4px"; 
+  spawnConfetti();
+ }, 1500);
+
+ setTimeout(()=>{
+  alert("🎉 Happy Birthday Ayat! 🎂\nKeep being the amazing soul you are! ❤️");
+  cakeBox.style.display="none";
+  line.style.width="0";
+  flame.style.display="block";
+  msg.innerText = "Make a wish! 🕯️";
+ }, 4500);
+}
+</script>
+
+</body>
+</html>
