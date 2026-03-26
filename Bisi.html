@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -58,26 +58,30 @@ button:hover{
 }
 @keyframes disco{100%{filter:hue-rotate(360deg);}}
 
-/* SNOW RAIN (Updated from Heart) */
+/* SNOW RAIN */
 .snow{
  position:fixed;
  top:-20px;
- color: rgba(255, 255, 255, 0.6); /* Transparent white */
+ color: rgba(255, 255, 255, 0.6);
  animation:fall linear infinite;
  z-index:999;
  pointer-events: none;
 }
 @keyframes fall{to{transform:translateY(110vh);}}
 
-/* FIREWORK */
-.firework{
- position:fixed;
- font-size:30px;
- animation:boom 1s ease-out forwards;
+/* ✨ NEW CONFETTI STYLE */
+.confetti {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  z-index: 1000;
+  border-radius: 2px;
+  animation: confettiFall 3s ease-out forwards;
 }
-@keyframes boom{
- 0%{transform:scale(0);opacity:1;}
- 100%{transform:scale(3);opacity:0;}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
 }
 
 /* PAGES */
@@ -90,7 +94,7 @@ button:hover{
  align-items:center;
 }
 
-/* 🔒 LOCK PAGE ATTRACTIVE */
+/* 🔒 LOCK PAGE */
 .lockBox{
  background:rgba(255,255,255,0.15);
  padding:70px 80px;
@@ -168,7 +172,7 @@ button:hover{
 #l2{background:linear-gradient(45deg,#ffb703,#ffd166);}
 #l3{background:linear-gradient(45deg,#90dbf4,#48cae4);}
 
-/* 🔥 3 CANDLES IMPROVED */
+/* CANDLES */
 .candles{
  position:absolute;
  top:-60px;
@@ -303,21 +307,17 @@ for(let i=0;i<80;i++){
 </div>
 
 <script>
-// ELEMENTS
 const pass=document.getElementById("pass");
 const lock=document.getElementById("lock");
 const game=document.getElementById("game");
 const letter=document.getElementById("letter");
 const cakePage=document.getElementById("cakePage");
 const final=document.getElementById("final");
-
 const letterText=document.getElementById("letterText");
 const letterNext=document.getElementById("letterNext");
-
 const scoreEl=document.getElementById("score");
 const gameArea=document.getElementById("gameArea");
 
-// UNLOCK
 function unlock(){
  if(pass.value.toLowerCase().trim()=="bisma"){
   lock.style.display="none";
@@ -326,7 +326,6 @@ function unlock(){
  } else alert("Wrong Password 💔");
 }
 
-// GAME
 let score=0;
 function startGame(){
  let interval=setInterval(()=>{
@@ -342,13 +341,10 @@ function startGame(){
  },300);
 }
 
-// LETTER
 function showLetter(){
  game.style.display="none";
  letter.style.display="flex";
-
- const text=`Dear Miss💖You're not just a teacher;You're beautiful inspiration that stay always.`;
-
+ const text=`Dear Miss💖You're not just a teacher;You're beautiful inspiration that stay always.💖`;
  let i=0;
  (function type(){
   if(i<text.length){
@@ -356,14 +352,12 @@ function showLetter(){
    setTimeout(type,30);
   } else letterNext.style.display="block";
  })();
-
  letterNext.onclick=function(){
   letter.style.display="none";
   cakePage.style.display="flex";
  }
 }
 
-// CAKE
 function startCake(){
  document.body.classList.add("dark");
  const l1=document.getElementById("l1");
@@ -371,7 +365,6 @@ function startCake(){
  const l3=document.getElementById("l3");
  const candles=document.getElementById("candles");
  const nextFinal=document.getElementById("nextFinal");
-
  setTimeout(()=>l1.style.opacity=1,500);
  setTimeout(()=>l2.style.opacity=1,1000);
  setTimeout(()=>l3.style.opacity=1,1500);
@@ -379,28 +372,35 @@ function startCake(){
  setTimeout(()=>nextFinal.style.display="block",2500);
 }
 
-// FINAL
+// ✨ UPDATED FINAL (Confetti Explosion)
 function showFinal(){
  document.body.classList.remove("dark");
  cakePage.style.display="none";
  final.style.display="flex";
+ document.getElementById("finalText").innerText = "Party Time! ✨";
 
- setInterval(()=>{
-  let f=document.createElement("div");
-  f.className="firework";
-  f.innerText="🎆";
-  f.style.left=Math.random()*100+"vw";
-  f.style.top=Math.random()*100+"vh";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),1000);
- },300);
+ const colors = ['#ff4d6d', '#ffafcc', '#ffb703', '#90dbf4', '#fff', '#ff00ff'];
+
+ setInterval(() => {
+  for(let i=0; i<5; i++) { // Burst 5 pieces at a time
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.top = "-10px";
+    c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    c.style.width = (Math.random() * 8 + 8) + "px";
+    c.style.height = (Math.random() * 8 + 8) + "px";
+    c.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3000);
+  }
+ }, 200);
 }
 
-// RESPONSE
 function answer(val){
  let r=document.getElementById("response");
  if(val){
-  r.innerHTML="yeee💖 You are Make My Day Thnks!";
+  r.innerHTML="yeee💖 You Made My Day Thnks!";
  }else{
   r.innerHTML="Oh no 💔 I’ll try to make it better next time...";
  }
