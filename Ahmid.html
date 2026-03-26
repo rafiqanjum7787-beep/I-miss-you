@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Bestie Ayat ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<style>
+:root {
+    --primary: #ff4d6d;
+    --secondary: #ff758f;
+    --accent: #ffb3c1;
+    --bg: #0f0c29;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+    background: var(--bg);
+    color: #fff;
+    text-align: center;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, .bff-text {
+    font-family: 'Dancing Script', cursive;
+}
+
+/* ✨ ENHANCED ANIMATED BACKGROUND */
+.disco {
+    position: fixed; inset: 0; z-index: -3;
+    background: linear-gradient(125deg, #0f0c29, #302b63, #24243e);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🌸 FLOATING ORBS */
+.orb {
+    position: fixed; width: 150px; height: 150px;
+    background: var(--primary);
+    filter: blur(80px); border-radius: 50%;
+    opacity: 0.4; z-index: -2;
+    animation: float 10s infinite alternate;
+}
+
+@keyframes float {
+    from { transform: translate(0, 0); }
+    to { transform: translate(100vw, 100vh); }
+}
+
+/* 💎 GLASSMORPHISM UI */
+.page {
+    display: none; min-height: 100vh;
+    padding: 20px; flex-direction: column;
+    justify-content: center; align-items: center;
+    perspective: 1000px;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 50px 30px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    max-width: 90%; width: 400px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🔘 NEUMORPHIC BUTTONS */
+input {
+    padding: 15px; border-radius: 15px; border: none;
+    width: 100%; font-size: 1.1rem; text-align: center;
+    background: rgba(255,255,255,0.1); color: white;
+    margin-bottom: 20px; transition: 0.3s;
+}
+
+input:focus { background: rgba(255,255,255,0.2); outline: none; box-shadow: 0 0 15px var(--primary); }
+
+button {
+    padding: 15px 40px; border-radius: 50px;
+    border: none; background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white; font-size: 1.2rem; font-weight: 600;
+    cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4);
+}
+
+button:hover { transform: scale(1.1) translateY(-5px); box-shadow: 0 15px 30px rgba(255, 77, 109, 0.6); }
+
+/* 🎮 GAME ELEMENTS */
+#heart-area span {
+    position: absolute; font-size: 40px;
+    filter: drop-shadow(0 0 10px var(--primary));
+    cursor: pointer; transition: 0.2s;
+}
+
+.memory-grid {
+    display: grid; grid-template-columns: repeat(4, 80px);
+    gap: 15px; margin-top: 30px;
+}
+
+.card {
+    width: 80px; height: 100px;
+    background: rgba(255,255,255,0.1); border-radius: 15px;
+    font-size: 2.5rem; display: flex;
+    align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.6s; transform-style: preserve-3d;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.card.flipped { transform: rotateY(180deg); background: var(--primary); color: white; }
+
+/* 💌 LETTER STYLES */
+.letter-box {
+    max-width: 500px; background: rgba(255,255,255,0.95);
+    padding: 40px; border-radius: 2px; /* Envelope look */
+    color: #333; font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem; line-height: 1.5;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.5);
+    transform: rotate(-2deg);
+}
+
+/* 🎂 CAKE SCENE UPGRADE */
+.cake-box {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.98);
+    display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 1000;
+}
+
+.cake {
+    position: relative; width: 250px; height: 120px;
+    background: #7a0019; border-radius: 10px;
+    box-shadow: 0 10px 0 #5a0012;
+}
+
+.cake-top {
+    position: absolute; top: -25px; width: 100%; height: 50px;
+    background: #ff4d6d; border-radius: 50%;
+}
+
+.candle {
+    position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+    width: 15px; height: 70px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d6d 5px, #ff4d6d 10px);
+    border-radius: 5px;
+}
+
+.flame {
+    width: 25px; height: 35px; background: #ffca3a;
+    border-radius: 50% 50% 20% 20%; position: absolute; top: -40px; left: -5px;
+    box-shadow: 0 0 20px #ffca3a; animation: flicker 0.1s infinite alternate;
+}
+</style>
+</head>
+<body>
+
+<div class="disco"></div>
+<div class="orb" style="top:20%; left:10%"></div>
+<div class="orb" style="bottom:10%; right:10%; background: #7209b7"></div>
+
+<div id="lock" class="page" style="display:flex">
+ <div class="glass">
+  <h1 style="font-size: 2.5rem; color: var(--primary);">Hey Bestie! ✨</h1><br>
+  <p>To enter Ayat's World, tell me:</p>
+  <p><b>Whose special day is it?</b></p><br>
+  <input id="passInput" type="text" placeholder="Enter Name Here...">
+  <br>
+  <button onclick="unlock()">Unlock Magic ✨</button>
+  <p id="err" style="margin-top:15px; font-weight: bold; color: #ff85a1"></p>
+ </div>
+</div>
+
+<div id="game" class="page">
+ <h1 style="font-size: 3rem;">Collect the Love! ❤️</h1>
+ <p style="margin-bottom: 20px;">Catch 10 hearts for Ayat</p>
+ <h2 style="font-size: 2.5rem; color: var(--primary);"><span id="score">0</span> / 10</h2>
+ <div id="heart-area"></div>
+</div>
+
+<div id="memoryPage" class="page">
+ <h1 style="font-size: 3rem; margin-bottom: 10px;">Memory Lane ✨</h1>
+ <p>Match the pairs of your favorite vibes!</p>
+ <div class="memory-grid" id="grid"></div>
+</div>
+
+<div id="letterPage" class="page">
+ <div class="letter-box">
+  <p id="letterText"></p>
+ </div>
+ <br>
+ <button onclick="showFinal()">Read to the End ❤️</button>
+</div>
+
+<div id="finalPage" class="page">
+ <div class="glass" style="width: auto;">
+    <div class="bff-heart" style="font-size: 6rem; animation: pulse 1.5s infinite;">💝</div>
+    <div class="bff-text" style="font-size: 3rem; margin: 10px 0;">Ayat & Talha</div>
+    <p style="letter-spacing: 3px; font-weight: 300;">BESTIES FOREVER</p>
+    <br>
+    <button onclick="cutCake()">🎂 Let's Cut the Cake!</button>
+ </div>
+</div>
+
+<div class="cake-box" id="cakeBox">
+ <h1 id="cakeMsg" style="color: #ffca3a; margin-bottom: 50px;">Blow the candle, Ayat! 🕯️</h1>
+ <div class="cake">
+    <div class="cake-top"></div>
+    <div class="candle"><div class="flame" id="flame"></div></div>
+ </div>
+</div>
+
+<script>
+// --- LOGIC ---
+
+function unlock(){
+ const pass = document.getElementById("passInput").value.trim().toLowerCase();
+ if(pass === "ayat"){
+  confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+  document.getElementById("lock").style.display="none";
+  document.getElementById("game").style.display="flex";
+  startGame();
+ } else {
+  document.getElementById("err").innerText="Try again! Hint: A_ _t 😉";
+ }
+}
+
+let score = 0;
+function startGame(){
+ let i = setInterval(()=>{
+  if(score >= 10){
+   clearInterval(i);
+   document.getElementById("game").style.display="none";
+   startMemory();
+   return;
+  }
+  let h = document.createElement("span");
+  h.innerHTML = "❤️";
+  h.style.left = Math.random()*85 + "vw";
+  h.style.top = "-50px";
+  h.style.transition = "transform 3s linear";
+  
+  setTimeout(() => { h.style.transform = "translateY(110vh)"; }, 10);
+  
+  h.onclick = () => {
+    score++;
+    document.getElementById("score").innerText = score;
+    h.style.transform = "scale(2) opacity(0)";
+    setTimeout(() => h.remove(), 200);
+  };
+  document.getElementById("heart-area").appendChild(h);
+ }, 700);
+}
+
+const emojis=['🌸','👑','🎈','🍦','🌸','👑','🎈','🍦'];
+let open=[], match=0;
+
+function startMemory(){
+ document.getElementById("memoryPage").style.display="flex";
+ emojis.sort(()=>Math.random()-.5).forEach(e=>{
+  let c=document.createElement("div");
+  c.className="card"; c.innerHTML="?"; c.dataset.v=e;
+  c.onclick=()=>{
+   if(open.length<2 && !c.classList.contains("flipped")){
+    c.classList.add("flipped"); c.innerHTML=e;
+    open.push(c);
+    if(open.length==2) check();
+   }
+  }
+  document.getElementById("grid").appendChild(c);
+ });
+}
+
+function check(){
+ if(open[0].dataset.v === open[1].dataset.v){
+  match++; open=[];
+  if(match==4) {
+    confetti({particleCount: 100, spread: 50});
+    setTimeout(showLetter, 1000);
+  }
+ } else {
+  setTimeout(()=>{
+   open.forEach(x=>{x.classList.remove("flipped"); x.innerHTML="?"});
+   open=[];
+  }, 700);
+ }
+}
+
+function showLetter(){
+ document.getElementById("memoryPage").style.display="none";
+ document.getElementById("letterPage").style.display="flex";
+ let t="Dearest Ayat, \n\nYou are the sprinkles on the cupcake of life! 🧁 Thank you for being such an incredible friend. May your year be as bright and beautiful as your smile. Stay amazing! \n\n— Your Bestie, Talha ❤️";
+ let idx=0;
+ (function type(){
+  if(idx<t.length){
+    document.getElementById("letterText").innerHTML += t[idx] === '\n' ? '<br>' : t[idx];
+    idx++;
+    setTimeout(type, 40);
+  }
+ })();
+}
+
+function showFinal(){
+ document.getElementById("letterPage").style.display="none";
+ document.getElementById("finalPage").style.display="flex";
+}
+
+function cutCake(){
+ document.getElementById("cakeBox").style.display="flex";
+ setTimeout(()=>{
+    document.getElementById("flame").style.opacity = "0";
+    document.getElementById("cakeMsg").innerText = "🎂 HAPPY BIRTHDAY AYAT! 🎂";
+    confetti({
+        particleCount: 300,
+        spread: 100,
+        origin: { y: 0.7 },
+        colors: ['#ff4d6d', '#ff758f', '#ffffff', '#ffca3a']
+    });
+ }, 2000);
+}
+</script>
+
+</body>
+</html>
