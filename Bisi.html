@@ -18,11 +18,10 @@ body{
  transition:0.5s;
 }
 
-/* 🔥 BIGGER UI */
+/* 🔥 UI SIZING */
 h1{font-size:3.8rem;}
 h2{font-size:2.3rem;}
 
-/* ATTRACTIVE BUTTONS FOR ALL PAGES */
 button{
  font-size:1.3rem;
  padding:14px 30px;
@@ -40,10 +39,8 @@ button:hover{
  box-shadow:0 0 30px #fff,0 0 60px #ff4d6d;
 }
 
-/* DARK MODE */
 .dark{background:black !important;}
 
-/* DISCO LIGHT */
 .disco{
  position:fixed;
  width:100%;
@@ -58,7 +55,7 @@ button:hover{
 }
 @keyframes disco{100%{filter:hue-rotate(360deg);}}
 
-/* SNOW RAIN */
+/* SNOW */
 .snow{
  position:fixed;
  top:-20px;
@@ -69,12 +66,11 @@ button:hover{
 }
 @keyframes fall{to{transform:translateY(110vh);}}
 
-/* ✨ NEW CONFETTI STYLE */
+/* CONFETTI */
 .confetti {
   position: fixed;
   width: 12px;
   height: 12px;
-  background-color: #fff;
   z-index: 1000;
   border-radius: 2px;
   animation: confettiFall 3s ease-out forwards;
@@ -92,32 +88,21 @@ button:hover{
  flex-direction:column;
  justify-content:center;
  align-items:center;
+ padding: 20px;
 }
 
-/* 🔒 LOCK PAGE */
+/* LOCK BOX */
 .lockBox{
  background:rgba(255,255,255,0.15);
  padding:70px 80px;
  border-radius:40px;
  box-shadow:0 0 60px rgba(255,77,109,0.8),0 0 40px rgba(255,175,204,0.5);
  backdrop-filter:blur(25px);
- text-align:center;
  animation:pop 0.8s ease-out;
 }
 @keyframes pop{
  0%{transform:scale(0.5);opacity:0;}
  100%{transform:scale(1);opacity:1;}
-}
-.lockBox h1{
- font-size:4rem;
- margin-bottom:20px;
- text-shadow:0 0 20px #fff,0 0 40px #ff4d6d;
-}
-.lockBox p{
- font-size:2rem;
- margin-bottom:25px;
- color:#fff;
- text-shadow:0 0 15px #ffafcc;
 }
 .lockBox input{
  padding:18px;
@@ -127,20 +112,11 @@ button:hover{
  text-align:center;
  margin-bottom:20px;
  font-size:1.3rem;
- box-shadow:0 0 15px #ffafcc,0 0 25px #ff4d6d inset;
- transition:0.3s;
-}
-.lockBox input:focus{
- outline:none;
- box-shadow:0 0 25px #fff,0 0 40px #ff4d6d inset;
+ box-shadow:0 0 15px #ffafcc, 0 0 25px #ff4d6d inset;
 }
 
 /* GAME */
-#gameArea span{
- position:absolute;
- font-size:50px;
- cursor:pointer;
-}
+#gameArea span{ position:absolute; font-size:50px; cursor:pointer; }
 
 /* LETTER */
 #letterText{
@@ -155,11 +131,8 @@ button:hover{
  text-align:left;
 }
 
-/* CAKE DESIGN */
-.cake{
- margin-top:30px;
- position:relative;
-}
+/* CAKE */
+.cake{ margin-top:30px; position:relative; }
 .layer{
  width:260px;
  height:55px;
@@ -168,11 +141,11 @@ button:hover{
  background:linear-gradient(45deg,#ff85a2,#ffc2d1);
  box-shadow:0 10px 20px rgba(0,0,0,0.3);
  opacity:0;
+ transition: opacity 0.8s;
 }
 #l2{background:linear-gradient(45deg,#ffb703,#ffd166);}
 #l3{background:linear-gradient(45deg,#90dbf4,#48cae4);}
 
-/* CANDLES */
 .candles{
  position:absolute;
  top:-60px;
@@ -181,52 +154,26 @@ button:hover{
  display:flex;
  gap:18px;
  opacity:0;
+ transition: opacity 0.8s;
 }
-.candle{
- width:12px;
- height:40px;
- background:white;
- position:relative;
- border-radius:3px;
-}
+.candle{ width:12px; height:40px; background:white; border-radius:3px; position:relative; }
 .flame{
- width:14px;
- height:14px;
- background:orange;
- border-radius:50%;
- position:absolute;
- top:-14px;
- left:-1px;
- animation:flicker 0.3s infinite;
+ width:14px; height:14px; background:orange; border-radius:50%;
+ position:absolute; top:-14px; left:-1px; animation:flicker 0.3s infinite;
 }
 @keyframes flicker{to{transform:scale(1.3);}}
 
-/* FINAL */
-#finalText{
- font-size:2.8rem;
- margin-top:20px;
-}
-#response{
- font-size:2rem;
- margin-top:15px;
-}
-
-/* ✨ QUOTE */
-.quote{
- font-size:2rem;
- margin-top:20px;
- opacity:0.9;
-}
-
-/* 🖼️ FRAME */
+/* FINAL & EXTRA PAGE */
 .frame{
  margin-top:25px;
  padding:20px 40px;
  border:5px solid #fff;
  border-radius:20px;
  font-size:2.5rem;
- box-shadow:0 0 20px #fff,0 0 40px #ff4d6d;
+ box-shadow:0 0 20px #fff, 0 0 40px #ff4d6d;
 }
+#noBtn { position: relative; transition: 0.2s; }
+#response { font-size:2rem; margin-top:15px; min-height: 40px; }
 </style>
 </head>
 
@@ -235,7 +182,6 @@ button:hover{
 <div class="disco"></div>
 
 <script>
-// SNOW RAIN
 for(let i=0;i<80;i++){
  let s=document.createElement("div");
  s.className="snow";
@@ -251,7 +197,7 @@ for(let i=0;i<80;i++){
 <div id="lock" class="page" style="display:flex">
  <div class="lockBox">
   <h1>Birthday Surprise 🎁</h1>
-  <p>Hint: Talha's Fav Teacher</p>
+  <p style="font-size: 2rem; margin-bottom: 20px;">Hint: Talha's Fav Teacher</p>
   <input id="pass" type="password">
   <button onclick="unlock()">Unlock 💖</button>
  </div>
@@ -265,12 +211,11 @@ for(let i=0;i<80;i++){
 
 <div id="letter" class="page">
  <div id="letterText"></div>
- <button id="letterNext" style="display:none">Next 🎂</button>
+ <button id="letterNext" style="display:none; margin-top: 20px;">Next 🎂</button>
 </div>
 
 <div id="cakePage" class="page" style="justify-content: flex-start; padding-top: 40px;">
  <h1>🎂 Make a Wish</h1>
-
  <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
     <div class="cake">
       <div class="layer" id="l1"></div>
@@ -282,28 +227,29 @@ for(let i=0;i<80;i++){
        <div class="candle"><div class="flame"></div></div>
       </div>
      </div>
-
      <button onclick="startCake()" style="margin-top: 40px;">Start 🎂</button>
      <button id="nextFinal" style="display:none; margin-top: 20px;" onclick="showFinal()">Next 💖</button>
  </div>
 </div>
 
 <div id="final" class="page">
- <div id="finalText"></div>
-
+ <h1 id="finalTitle">Party Time! ✨</h1>
  <h2>Do you like my surprise? 💖</h2>
- <button onclick="answer(true)">Yes 😊</button>
- <button onclick="answer(false)">No 💔</button>
-
+ <div style="margin-top:20px;">
+    <button onclick="answer(true)">Yes 😊</button>
+    <button id="noBtn" onmouseover="dodgeNo()" onclick="dodgeNo()">No 💔</button>
+ </div>
  <div id="response"></div>
+ <button id="toLastPage" style="display:none; margin-top: 30px;" onclick="showLastPage()">One More Thing... ✨</button>
+</div>
 
- <div class="quote">
-  "A beautiful soul like you makes the world brighter every day 💫"
+<div id="lastPage" class="page">
+ <div class="frame">🎂 Happy Birthday Day 🎂</div>
+ <div style="font-size: 2.5rem; margin-top: 30px; line-height: 1.5;">
+    "A beautiful soul like you makes the world brighter every day 💫"<br>
+    <span style="font-size: 1.8rem;">Wishing you a year full of happiness and success!</span>
  </div>
-
- <div class="frame">
-  🎂 Happy Birthday Day 🎂
- </div>
+ <button onclick="location.reload()" style="margin-top: 40px; font-size: 1rem;">Restart Surprise 🔄</button>
 </div>
 
 <script>
@@ -313,6 +259,7 @@ const game=document.getElementById("game");
 const letter=document.getElementById("letter");
 const cakePage=document.getElementById("cakePage");
 const final=document.getElementById("final");
+const lastPage=document.getElementById("lastPage");
 const letterText=document.getElementById("letterText");
 const letterNext=document.getElementById("letterNext");
 const scoreEl=document.getElementById("score");
@@ -344,12 +291,12 @@ function startGame(){
 function showLetter(){
  game.style.display="none";
  letter.style.display="flex";
- const text=`Dear Miss💖You're not just a teacher;You're beautiful inspiration that stay always.💖`;
+ const text=`Dear Miss💖\n\nYou're not just a teacher; You're a beautiful inspiration that stays always.\n\nHappy Birthday💖`;
  let i=0;
  (function type(){
   if(i<text.length){
    letterText.innerHTML+=text[i++];
-   setTimeout(type,30);
+   setTimeout(type,40);
   } else letterNext.style.display="block";
  })();
  letterNext.onclick=function(){
@@ -360,11 +307,7 @@ function showLetter(){
 
 function startCake(){
  document.body.classList.add("dark");
- const l1=document.getElementById("l1");
- const l2=document.getElementById("l2");
- const l3=document.getElementById("l3");
- const candles=document.getElementById("candles");
- const nextFinal=document.getElementById("nextFinal");
+ const l1=document.getElementById("l1"), l2=document.getElementById("l2"), l3=document.getElementById("l3"), candles=document.getElementById("candles"), nextFinal=document.getElementById("nextFinal");
  setTimeout(()=>l1.style.opacity=1,500);
  setTimeout(()=>l2.style.opacity=1,1000);
  setTimeout(()=>l3.style.opacity=1,1500);
@@ -372,38 +315,49 @@ function startCake(){
  setTimeout(()=>nextFinal.style.display="block",2500);
 }
 
-// ✨ UPDATED FINAL (Confetti Explosion)
 function showFinal(){
  document.body.classList.remove("dark");
  cakePage.style.display="none";
  final.style.display="flex";
- document.getElementById("finalText").innerText = "Party Time! ✨";
+ startConfetti();
+}
 
+function startConfetti(){
  const colors = ['#ff4d6d', '#ffafcc', '#ffb703', '#90dbf4', '#fff', '#ff00ff'];
-
  setInterval(() => {
-  for(let i=0; i<5; i++) { // Burst 5 pieces at a time
-    let c = document.createElement("div");
-    c.className = "confetti";
-    c.style.left = Math.random() * 100 + "vw";
-    c.style.top = "-10px";
-    c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    c.style.width = (Math.random() * 8 + 8) + "px";
-    c.style.height = (Math.random() * 8 + 8) + "px";
-    c.style.animationDuration = (Math.random() * 2 + 2) + "s";
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 3000);
+  if(lastPage.style.display === "flex" || final.style.display === "flex"){
+      for(let i=0; i<5; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = "-10px";
+        c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        c.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+      }
   }
- }, 200);
+ }, 300);
+}
+
+function dodgeNo() {
+    const noBtn = document.getElementById("noBtn");
+    noBtn.style.position = "fixed";
+    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
 }
 
 function answer(val){
- let r=document.getElementById("response");
  if(val){
-  r.innerHTML="yeee💖 You Made My Day Thnks!";
- }else{
-  r.innerHTML="Oh no 💔 I’ll try to make it better next time...";
+  document.getElementById("response").innerHTML="yeee💖 You Made My Day Thnks!";
+  document.getElementById("noBtn").style.display = "none";
+  document.getElementById("toLastPage").style.display = "block";
  }
+}
+
+function showLastPage(){
+    final.style.display = "none";
+    lastPage.style.display = "flex";
 }
 </script>
 
